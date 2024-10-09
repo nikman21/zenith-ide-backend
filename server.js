@@ -47,6 +47,8 @@ app.prepare().then(async () => {
 
     const PORT = process.env.PORT || 3000;
     httpServer.listen(PORT, () => {
-        console.log(`Server is running on http://localhost:${PORT}`);
+        const host = httpServer.address().address;
+        const port = httpServer.address().port;
+        console.log(`Server is running at http://${host}:${port}`);
     });
 });
