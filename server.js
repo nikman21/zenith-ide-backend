@@ -15,7 +15,7 @@ app.prepare().then(async () => {
     
     // Enable CORS for all origins
     server.use(cors({
-        origin: 'https://zenith-ide.vercel.app', // Adjust this if your frontend runs on a different URL
+        origin: '*',//'https://zenith-ide.vercel.app', // Adjust this if your frontend runs on a different URL
         methods: ['GET', 'POST', 'PUT', 'DELETE'],
         credentials: true,
     }));
@@ -23,7 +23,7 @@ app.prepare().then(async () => {
     const httpServer = http.createServer(server);
     const io = socketIO(httpServer, {
         cors: {
-            origin: 'https://zenith-ide.vercel.app', // Allow socket connection from your frontend
+            origin: '*',//'https://zenith-ide.vercel.app', // Allow socket connection from your frontend
             methods: ['GET', 'POST'],
             credentials: true
         }
