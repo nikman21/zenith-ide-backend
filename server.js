@@ -48,7 +48,6 @@ app.prepare().then(async () => {
     const PORT = process.env.PORT || 3000;
     httpServer.listen(PORT, () => {
         const HOST = process.env.RENDER_EXTERNAL_URL || `http://localhost:${PORT}`;
-        const PORT = process.env.PORT || 3000;
-        console.log(`Server is running at http://${host}:${port}`);
+        console.log(`Server is running at http://${HOST}`);
     });
 });
