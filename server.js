@@ -14,11 +14,11 @@ app.prepare().then(async () => {
     const server = express();
     
     // Enable CORS for all origins
-    server.use(cors({
-        origin: '*',//'https://zenith-ide.vercel.app', // Adjust this if your frontend runs on a different URL
-        methods: ['GET', 'POST', 'PUT', 'DELETE'],
-        credentials: true,
-    }));
+    // server.use(cors({
+    //     origin: '*',//'https://zenith-ide.vercel.app', // Adjust this if your frontend runs on a different URL
+    //     methods: ['GET', 'POST', 'PUT', 'DELETE'],
+    //     credentials: true,
+    // }));
 
     const httpServer = http.createServer(server);
     const io = socketIO(httpServer, {
@@ -47,8 +47,8 @@ app.prepare().then(async () => {
 
     const PORT = process.env.PORT || 3000;
     httpServer.listen(PORT, () => {
-        const host = httpServer.address().address;
-        const port = httpServer.address().port;
+        const HOST = process.env.RENDER_EXTERNAL_URL || `http://localhost:${PORT}`;
+        const PORT = process.env.PORT || 3000;
         console.log(`Server is running at http://${host}:${port}`);
     });
 });
