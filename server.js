@@ -31,13 +31,20 @@ app.prepare().then(async () => {
 
     io.on('connection', (socket) => {
         console.log('Client connected');
-		socket.emit('message2', 'helloooo');
+
+        socket.on('joinRoom', (roomId) => {
+            socket.join(roomId);
+            console.log(`client joined room ${roomId}`)
+        })
+
+		// socket.emit('message2', 'helloooo');
 
         socket.on('message1', (data) => {
-            console.log('Received from client:', data);
+            const { roomId, code } = data;
+            console.log('Received from client:', code);
             
-            // Broadcast the new code to all clients except the sender
-            socket.broadcast.emit('message2', data);
+            
+            socket.to(roomId).emit('message2', code);
         });
     });
 
@@ -45,7 +52,7 @@ app.prepare().then(async () => {
         return handle(req, res);
     });
 
-    const PORT = process.env.PORT || 3000;
+    const PORT = process.env.PORT || 3001;
     httpServer.listen(PORT, () => {
         const HOST = process.env.RENDER_EXTERNAL_URL || `http://localhost:${PORT}`;
         console.log(`Server is running at http://${HOST}`);
